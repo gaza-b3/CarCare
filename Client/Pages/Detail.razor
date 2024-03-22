@@ -1,0 +1,61 @@
+﻿@page "/detail"
+
+<PageTitle>Détails du véhicule</PageTitle>
+
+<h1>Détails du véhicule @immatriculation</h1>
+
+<div>
+    <h3>@Vehicule.Marque @forecast.Modele</h3>
+    <p>Immatriculation : @Vehicule.Immatriculation</p>
+    <p>Année : @Vehicule.Annee</p>
+    <p>Kilométrage : @Vehicule.Kilometrage</p>
+    <p>Énergie : @Vehicule.Energie</p>
+</div>
+
+@code {
+    [Parameter]
+    public string? Marque { get; set; }
+
+    [Parameter]
+    public string? Modele { get; set; }
+
+    [Parameter]
+    public string? Immatriculation { get; set; }
+
+    [Parameter]
+    public int Retard { get; set; }
+
+    private string marque;
+    private string modele;
+    private string immatriculation;
+    private int retard;
+
+}
+
+
+
+
+@page "/detail"
+@inject VehiculeService VehiculeService
+
+<PageTitle>Détails du véhicule</PageTitle>
+
+<h1>Détails du véhicule @Vehicule.Immatriculation</h1>
+
+<div>
+    <h3>@Vehicule.Marque @Vehicule.Modele</h3>
+    <p>Immatriculation : @Vehicule.Immatriculation</p>
+    <p>Année : @Vehicule.Annee</p>
+    <p>Kilométrage : @Vehicule.Kilometrage</p>
+    <p>Énergie : @Vehicule.Energie</p>
+</div>
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+    private Vehicule Vehicule { get; set; } = new Vehicule();
+    protected override async Task OnInitializedAsync()
+    {
+        Vehicule = await VehiculeService.GetVehiculeById(Id);
+    }
+}

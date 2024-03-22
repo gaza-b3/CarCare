@@ -1,0 +1,55 @@
+﻿@page "/"
+@inject HttpClient Http
+
+<PageTitle>Accueil</PageTitle>
+
+<h1>Véhicules en retard d'entretien</h1>
+
+@if (forecasts == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Marque</th>
+                <th>Modèle</th>
+                <th>Immatriculation</th>
+                <th>Retard</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var forecast in forecasts)
+            {
+                <tr>
+                    <td>@forecast.Marque</td>
+                    <td>@forecast.Modele</td>
+                    <td>@forecast.Immatriculation</td>
+                    <td>@forecast.Retard</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private VehiculeForecast[]? forecasts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        forecasts = await Http.GetFromJsonAsync<VehiculeForecast[]>("sample-data/vehicules.json");
+    }
+
+    public class VehiculeForecast
+    {
+        public string? Marque { get; set; }
+
+        public string? Modele { get; set; }
+
+        public string? Immatriculation { get; set; }
+
+        public int Retard { get; set; }
+    }
+}

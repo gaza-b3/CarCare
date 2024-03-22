@@ -1,0 +1,32 @@
+﻿[
+  {
+    "id": "1",
+    "marque": "Renault",
+    "modele": "Clio 2",
+    "immatriculation": "KJ-124-FG"
+  },
+  {
+    "id": "2",
+    "marque": "Renault",
+    "modele": "Renault 21",
+    "immatriculation": "BR-123-FD"
+  },
+  {
+    "id": "3",
+    "marque": "Renault",
+    "modele": "Clio 3",
+    "immatriculation": "GF-124-DF"
+  },
+  {
+    "id": "4",
+    "marque": "mazda",
+    "modele": "sx",
+    "immatriculation": "FD-143-EZ"
+  },
+  {
+    "id": "5",
+    "marque": "fiat",
+    "modele": "punto",
+    "immatriculation": "ML-799-GH"
+  }
+]

@@ -1,0 +1,63 @@
+﻿@page "/vehicules"
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+<PageTitle>Vehicules</PageTitle>
+
+<h1>Véhicules</h1>
+
+@if (forecasts == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Marque</th>
+                <th>Modèle</th>
+                <th>Immatriculation</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var forecast in forecasts)
+            {
+                <tr>
+                    <td>@forecast.Marque</td>
+                    <td>@forecast.Modele</td>
+                    <td>@forecast.Immatriculation</td>
+                    <td><button type="button" class="btn btn-primary" @onclick="() => HandleActionClick(forecast)">Actions</button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private VehiculeForecast[]? forecasts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        forecasts = await Http.GetFromJsonAsync<VehiculeForecast[]>("sample-data/vehicules.json");
+    }
+
+    public class VehiculeForecast
+    {
+        public int Id { get; set; }
+
+        public string? Marque { get; set; }
+
+        public string? Modele { get; set; }
+
+        public string? Immatriculation { get; set; }
+
+        public int Retard { get; set; }
+    }
+
+    private void HandleActionClick(VehiculeForecast forecast)
+    {
+        // Ajouter ici le code pour gérer les actions lorsque le bouton est cliqué
+        NavigationManager.NavigateTo($"/detail?id={forecast.Id}");
+    }
+}
